@@ -1,20 +1,33 @@
-import { HiAcademicCap } from "react-icons/hi"
-import { MdApi } from "react-icons/md"
-
-import { IconContext } from 'react-icons'
-
-import { FaAmazon } from "react-icons/fa"
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import './App.css';
 
+const CustomToast = ({ closeToast }) => {
+  return (
+    <div>
+      Something went wrong!
+      <button onClick={closeToast}>Close</button>
+    </div>
+  )
+}
+
+toast.configure()
+
 function App() {
+
+  const notify = () => {
+    toast('Basic Notification!', {position: toast.POSITION.TOP_LEFT})
+    toast.success('Success Notification!', {position: toast.POSITION.TOP_CENTER})
+    toast.info('Info Notification!', {position: toast.POSITION.TOP_RIGHT, autoClose: 8000})
+    toast.warn(<CustomToast />, {position: toast.POSITION.BOTTOM_LEFT, autoClose: false})
+    toast.error('Error Notification!', {position: toast.POSITION.BOTTOM_CENTER})
+    toast('Basic Notification!', {position: toast.POSITION.BOTTOM_RIGHT})
+  }
+
   return (
     <div className="App">
-     <FaAmazon color='purple' size='10rem' />
-
-      <IconContext.Provider value={{color: 'blue', size: '5rem'}}>
-        <MdApi />
-        <HiAcademicCap color='red' size='8rem' />
-      </IconContext.Provider> 
+      <button onClick={notify}>Notify!</button>
+    
     </div>
   );
 }
